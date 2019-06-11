@@ -1,5 +1,6 @@
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
+let jsonData = require('./loc.json');
 const {maps} = require('./map.js');
 
 const filledMaps = (cfg) => maps(cfg.location)
@@ -13,9 +14,13 @@ const getMap = (cfg) => {
 }
 
 const getUrl = (cfg) => {
+    locCode = getLocCode(cfg)
+    if(!locCode){
+        throw new Error("Località non valida");
+    }
     let query = getMap(cfg)
     let format = cfg.format ? cfg.format : "json"
-    return `http://datiopen.istat.it/sparql/oracle_07?query=${encodeURIComponent(query)}&format=${format}`
+    return `http://datiopen.istat.it/sparql/oracle_${locCode}?query=${encodeURIComponent(query)}&format=${format}`
 }
 
 const beautifyResult = (obj)=>{
@@ -29,6 +34,17 @@ const beautifyResult = (obj)=>{
         return tmp
     })
     return data
+}
+
+const getLocCode = (cfg)=>{
+    let currentLoc = cfg.location
+    code = false
+    jsonData.forEach(el=>{
+        if(el.FIELD12.toLowerCase() == currentLoc.toLowerCase()){
+            code =  el.FIELD1
+        }
+    })
+    return code
 }
 
 const call = (cfg,cb) =>{

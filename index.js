@@ -17,9 +17,9 @@ Variabili censuarie
 7 -> Edifici
 */
 const cfg = {
-    livello_aggregazione_dati : 1,
+    livello_aggregazione_dati : 2,
     variabili_censuarie : 1,
-    location : "Affile"
+    location : "Roma"
 }
 let data = call(cfg,(result)=>{
     console.log(result)
