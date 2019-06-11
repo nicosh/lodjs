@@ -1,6 +1,6 @@
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
-let jsonData = require('./loc.json');
+const jsonData = require('./loc.json');
 const {maps} = require('./map.js');
 
 const filledMaps = (cfg) => maps(cfg.location)
@@ -70,8 +70,8 @@ const call = (cfg,cb) =>{
     fetch(endpoint).then(response => {
         response.json().then((data) =>{
            let cleanresult = beautifyResult(data)
-           let totalPopulation = buildHeadAndPayload(cfg,cleanresult)
-           cb(totalPopulation)
+           let result = buildHeadAndPayload(cfg,cleanresult)
+           cb(result)
         } )
     })
 } 
