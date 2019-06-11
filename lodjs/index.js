@@ -39,8 +39,8 @@ const beautifyResult = (obj)=>{
 const getLocCode = (cfg)=>{
     let currentLoc = cfg.location
     code = false
-    jsonData.forEach(el=>{
-        if(el.FIELD12.toLowerCase() == currentLoc.toLowerCase()){
+    jsonData.forEach(el=>{ 
+        if(el.FIELD6.toLowerCase() == currentLoc.toLowerCase() || el.FIELD7.toLowerCase() == currentLoc.toLowerCase()){
             code =  el.FIELD1
         }
     })
